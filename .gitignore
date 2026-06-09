@@ -99,3 +99,6 @@ Thumbs.db
 # temporary files
 *.tmp
 *.temp
+
+
+/docs/secrets.md
