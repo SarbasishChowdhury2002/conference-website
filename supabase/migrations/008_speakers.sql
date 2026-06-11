@@ -9,6 +9,8 @@ CREATE TABLE speakers (
 
     designation TEXT NOT NULL,
 
+    slug TEXT UNIQUE NOT NULL,
+
     organization TEXT NOT NULL,
 
     bio TEXT,

@@ -11,6 +11,8 @@ CREATE TABLE downloads (
 
     file_url TEXT NOT NULL,
 
+    category TEXT NOT NULL,
+
     display_order INTEGER NOT NULL DEFAULT 0,
 
     is_visible BOOLEAN NOT NULL DEFAULT TRUE,
