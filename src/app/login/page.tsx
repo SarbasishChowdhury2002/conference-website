@@ -2,7 +2,8 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { createBrowserClient } from "@/lib/supabase/client";
+//import { createBrowserClient } from "@/lib/supabase/client";
+import { getSupabaseBrowserClient } from "@/lib/supabase/client";
 
 export default function LoginPage() {
   const [email, setEmail] = useState("");
@@ -11,7 +12,8 @@ export default function LoginPage() {
   const [loading, setLoading] = useState(false);
 
   const router = useRouter();
-  const supabase = createBrowserClient();
+  //const supabase = createBrowserClient();
+  const supabase = getSupabaseBrowserClient();
 
   async function handleLogin(
     e: React.FormEvent<HTMLFormElement>
@@ -21,11 +23,20 @@ export default function LoginPage() {
     setLoading(true);
     setError("");
 
-    const { error } =
+    const { data, error } =
         await supabase.auth.signInWithPassword({
         email,
         password,
         });
+
+    const {
+      data: { session },
+    } = await supabase.auth.getSession();
+
+    console.log("SESSION AFTER LOGIN:", session);
+
+    console.log("LOGIN DATA:", data);
+    console.log("LOGIN ERROR:", error);
 
     if (error) {
         setError(error.message);
@@ -33,7 +44,10 @@ export default function LoginPage() {
         return;
     }
 
-    router.push("/admin");
+    alert("Login Success");
+    setLoading(false);
+    //router.push("/admin");
+    window.location.href = "/admin";
   }
 
   return (
