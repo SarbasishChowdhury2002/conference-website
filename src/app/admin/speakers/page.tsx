@@ -32,6 +32,10 @@ export default async function SpeakersPage() {
           <thead className="bg-gray-100">
             <tr>
               <th className="p-3 text-left">
+                Photo
+              </th>
+
+              <th className="p-3 text-left">
                 Name
               </th>
 
@@ -75,6 +79,19 @@ export default async function SpeakersPage() {
                 key={speaker.id}
                 className="border-t"
               >
+
+                <td className="p-3">
+                  {speaker.photo_url ? (
+                    <img
+                      src={speaker.photo_url}
+                      alt={speaker.name}
+                      className="h-12 w-12 rounded object-cover"
+                    />
+                  ) : (
+                    "-"
+                  )}
+                </td>
+
                 <td className="p-3">
                   {speaker.name}
                 </td>

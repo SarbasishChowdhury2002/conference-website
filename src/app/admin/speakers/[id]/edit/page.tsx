@@ -34,7 +34,14 @@ export default async function EditSpeakerPage({
         Edit Speaker
       </h1>
 
-      
+      {speaker.photo_url && (
+        <img
+          src={speaker.photo_url}
+          alt={speaker.name}
+          className="mb-4 h-32 w-32 rounded object-cover border"
+        />
+      )}
+
       <SpeakerImageUpload
         speakerId={speaker.id}
       />

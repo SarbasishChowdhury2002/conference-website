@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { getSupabaseBrowserClient } from "@/lib/supabase/client";
+import { updateSpeakerPhoto } from "@/app/admin/speakers/actions";
 
 type Props = {
   speakerId: string;
@@ -50,7 +51,12 @@ export default function SpeakerImageUpload({
       .from("speakers")
       .getPublicUrl(fileName);
 
-    console.log(publicUrl);
+    await updateSpeakerPhoto(
+      speakerId,
+      publicUrl
+    );
+
+    window.location.reload();
 
     setUploading(false);
   }

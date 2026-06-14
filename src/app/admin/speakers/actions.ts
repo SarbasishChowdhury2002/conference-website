@@ -107,3 +107,24 @@ export async function deleteSpeaker(
     throw new Error(error.message);
   }
 }
+
+
+export async function updateSpeakerPhoto(
+  speakerId: string,
+  photoUrl: string
+) {
+  const supabase =
+    await createServerSupabaseClient();
+
+  const { error } = await supabase
+    .from("speakers")
+    .update({
+      photo_url: photoUrl,
+      updated_at: new Date().toISOString(),
+    })
+    .eq("id", speakerId);
+
+  if (error) {
+    throw new Error(error.message);
+  }
+}
