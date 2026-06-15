@@ -45,6 +45,13 @@ export default function AdminLayout({
           </Link>
 
           <Link
+            href="/admin/committee-members"
+            className="block rounded p-2 hover:bg-gray-200"
+          >
+            Committee Members
+          </Link>
+
+          <Link
             href="/admin/programme"
             className="block rounded p-2 hover:bg-gray-200"
           >
