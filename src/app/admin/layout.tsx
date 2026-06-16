@@ -1,12 +1,26 @@
 import Link from "next/link";
 import { ReactNode } from "react";
-import LogoutButton from "@/components/admin/logout-button";
+import { redirect } from "next/navigation";
 
-export default function AdminLayout({
+import LogoutButton from "@/components/admin/logout-button";
+import { createServerSupabaseClient } from "@/lib/supabase/server";
+
+export default async function AdminLayout({
   children,
 }: {
   children: ReactNode;
 }) {
+  const supabase =
+    await createServerSupabaseClient();
+
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+
+  if (!user) {
+    redirect("/login");
+  }
+
   return (
     <div className="flex min-h-screen">
       {/* Sidebar */}
@@ -72,13 +86,9 @@ export default function AdminLayout({
             Settings
           </Link>
 
-          
-
-        <div className="mt-auto">
-          <LogoutButton />
-        </div>
-
-
+          <div className="pt-4">
+            <LogoutButton />
+          </div>
         </nav>
       </aside>
 
