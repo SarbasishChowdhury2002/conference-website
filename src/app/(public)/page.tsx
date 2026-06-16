@@ -6,6 +6,11 @@ import { getAnnouncements } from "@/lib/data/announcements";
 import { getImportantDates } from "@/lib/data/important-dates";
 import { getSpeakers } from "@/lib/data/speakers";
 
+import { StatsSection } from "@/components/public/stats-section";
+import { getProgrammeItems } from "@/lib/data/programme";
+import { SpeakerCard } from "@/components/public/speaker-card";
+import Link from "next/link";
+
 export default async function HomePage() {
   const conference = await getConference();
 
@@ -20,6 +25,7 @@ export default async function HomePage() {
   const announcements = await getAnnouncements();
   const dates = await getImportantDates();
   const speakers = await getSpeakers();
+  const programme = await getProgrammeItems();
 
   return (
     <>
@@ -29,6 +35,11 @@ export default async function HomePage() {
         tagline={conference.tagline}
         dates={`${conference.start_date} - ${conference.end_date}`}
         venue={`${conference.venue_name}, ${conference.city}`}
+      />
+
+      <StatsSection
+        speakers={speakers.length}
+        sessions={programme.length}
       />
 
       {/* About */}
@@ -74,23 +85,30 @@ export default async function HomePage() {
 
       {/* Important Dates */}
       <section className="container mx-auto px-4 py-16">
-        <SectionTitle title="Important Dates" />
+        <SectionTitle
+          title="Important Dates"
+          subtitle="Key milestones and deadlines"
+        />
 
-        <div className="space-y-3">
-          {dates.slice(0, 5).map((date) => (
+        <div className="grid gap-6 md:grid-cols-2">
+          {dates.slice(0, 4).map((date) => (
             <div
               key={date.id}
-              className="rounded-xl border bg-white p-4 shadow-sm"
+              className="rounded-xl border-l-4 border-blue-600 bg-white p-6 shadow-sm"
             >
-              <div className="font-semibold">
-                {date.title}
+              <div className="mb-2 text-sm font-medium text-blue-600">
+                {new Date(date.event_date).toLocaleDateString()}
               </div>
 
-              <div className="text-sm text-gray-500">
-                {new Date(
-                  date.event_date
-                ).toLocaleDateString()}
-              </div>
+              <h3 className="font-semibold">
+                {date.title}
+              </h3>
+
+              {date.description && (
+                <p className="mt-2 text-sm text-gray-600">
+                  {date.description}
+                </p>
+              )}
             </div>
           ))}
         </div>
@@ -98,23 +116,69 @@ export default async function HomePage() {
 
       {/* Featured Speakers */}
       <section className="container mx-auto px-4 py-16">
-        <SectionTitle title="Featured Speakers" />
+        <SectionTitle
+          title="Featured Speakers"
+          subtitle="Distinguished experts from academia and industry"
+        />
 
-        <div className="grid gap-6 md:grid-cols-3">
+        <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
           {speakers.slice(0, 3).map((speaker) => (
-            <div
+            <SpeakerCard
               key={speaker.id}
-              className="rounded-xl border bg-white p-4 shadow-sm"
-            >
-              <h3 className="font-semibold">
-                {speaker.name}
-              </h3>
-
-              <p className="text-sm text-gray-600">
-                {speaker.designation}
-              </p>
-            </div>
+              name={speaker.name}
+              designation={speaker.designation}
+              organization={speaker.organization}
+              photoUrl={speaker.photo_url}
+            />
           ))}
+        </div>
+      </section>
+
+
+      {/* Call For Papers */}
+      <section className="bg-slate-900 py-20 text-white">
+        <div className="container mx-auto px-4 text-center">
+          <h2 className="mb-4 text-4xl font-bold">
+            Call For Papers
+          </h2>
+
+          <p className="mx-auto mb-8 max-w-3xl text-lg text-gray-300">
+            Researchers, academicians, industry
+            professionals, and students are invited
+            to submit original research papers for
+            presentation at the conference.
+          </p>
+
+          <Link
+            href="/important-dates"
+            className="rounded-lg bg-blue-600 px-6 py-3 font-medium text-white hover:bg-blue-700"
+          >
+            View Important Dates
+          </Link>
+        </div>
+      </section>
+
+      {/* Registration Banner */}    
+      <section className="py-20">
+        <div className="container mx-auto px-4">
+          <div className="rounded-2xl bg-blue-600 p-10 text-center text-white">
+            <h2 className="mb-4 text-4xl font-bold">
+              Join CONF2026
+            </h2>
+
+            <p className="mb-8 text-lg">
+              Register now and be part of a premier
+              platform for research, innovation,
+              and collaboration.
+            </p>
+
+            <Link
+              href="/registration"
+              className="rounded-lg bg-white px-6 py-3 font-medium text-blue-600"
+            >
+              Register Today
+            </Link>
+          </div>
         </div>
       </section>
     </>

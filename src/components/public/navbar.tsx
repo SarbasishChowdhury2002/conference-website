@@ -1,36 +1,51 @@
 import Link from "next/link";
+import { MobileNav } from "./mobile-nav";
+import { NavLink } from "./nav-link";
 
 const links = [
   { href: "/", label: "Home" },
   { href: "/about", label: "About" },
   { href: "/speakers", label: "Speakers" },
-  { href: "/committee", label: "Committee" },
   { href: "/programme", label: "Programme" },
+  { href: "/committee", label: "Committee" },
   { href: "/important-dates", label: "Important Dates" },
   { href: "/announcements", label: "Announcements" },
-  { href: "/registration", label: "Registration" },
   { href: "/contact", label: "Contact" },
 ];
 
 export function Navbar() {
   return (
-    <header className="border-b bg-white">
-      <div className="container mx-auto flex h-16 items-center justify-between px-4">
-        <Link href="/" className="font-bold text-xl">
+    <header className="sticky top-0 z-50 border-b bg-white/95 backdrop-blur">
+      <div className="container mx-auto flex h-20 items-center justify-between px-4">
+        {/* Logo / Conference Name */}
+        <Link
+          href="/"
+          className="text-2xl font-bold tracking-tight"
+        >
           CONF2026
         </Link>
 
-        <nav className="hidden md:flex gap-6">
+        {/* Desktop Navigation */}
+        <nav className="hidden items-center gap-6 lg:flex">
           {links.map((link) => (
-            <Link
+            <NavLink
               key={link.href}
               href={link.href}
-              className="text-sm hover:text-blue-600"
-            >
-              {link.label}
-            </Link>
+              label={link.label}
+            />
           ))}
         </nav>
+
+        <div className="flex items-center gap-4">
+          <Link
+            href="/registration"
+            className="hidden rounded-lg bg-blue-600 px-4 py-2 text-sm font-medium text-white transition hover:bg-blue-700 lg:block"
+          >
+            Register
+          </Link>
+
+          <MobileNav />
+        </div>
       </div>
     </header>
   );
