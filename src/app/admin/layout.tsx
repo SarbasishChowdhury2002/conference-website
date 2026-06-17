@@ -37,6 +37,11 @@ export default async function AdminLayout({
             Dashboard
           </Link>
 
+          <Link href="/admin/conference"
+            className="block rounded p-2 hover:bg-gray-200">
+            Conference
+          </Link>
+
           <Link
             href="/admin/tracks"
             className="block rounded p-2 hover:bg-gray-200"
@@ -80,10 +85,17 @@ export default async function AdminLayout({
           </Link>
 
           <Link
-            href="/admin/registrations"
+            href="/admin/registration-settings"
             className="block rounded p-2 hover:bg-gray-200"
           >
-            Registrations
+            Registration Settings
+          </Link>
+
+          <Link
+            href="/admin/contact"
+            className="block rounded p-2 hover:bg-gray-200"
+          >
+            Contact
           </Link>
 
           <Link

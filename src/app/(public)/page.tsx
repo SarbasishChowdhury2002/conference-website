@@ -151,7 +151,7 @@ export default async function HomePage() {
               </Link>
 
               <Link
-              href="https://cmt3.research.microsoft.com/"
+              href={conference.cmt_link}
               target="_blank"
               className="rounded-lg bg-white px-6 py-3 font-medium text-blue-600"
               >
@@ -248,7 +248,7 @@ export default async function HomePage() {
         <div className="container mx-auto px-4">
           <div className="rounded-2xl bg-blue-600 p-10 text-center text-white">
             <h2 className="mb-4 text-4xl font-bold">
-              Join CONF2026
+              Join {conference.short_name}
             </h2>
 
             <p className="mb-8 text-lg">
