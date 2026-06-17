@@ -38,6 +38,13 @@ export default async function AdminLayout({
           </Link>
 
           <Link
+            href="/admin/tracks"
+            className="block rounded p-2 hover:bg-gray-200"
+          >
+            Tracks
+          </Link>
+
+          <Link
             href="/admin/speakers"
             className="block rounded p-2 hover:bg-gray-200"
           >

@@ -9,6 +9,7 @@ import { getSpeakers } from "@/lib/data/speakers";
 import { StatsSection } from "@/components/public/stats-section";
 import { getProgrammeItems } from "@/lib/data/programme";
 import { SpeakerCard } from "@/components/public/speaker-card";
+import { getTracks } from "@/lib/data/tracks";
 import Link from "next/link";
 
 export default async function HomePage() {
@@ -25,6 +26,7 @@ export default async function HomePage() {
   const announcements = await getAnnouncements();
   const dates = await getImportantDates();
   const speakers = await getSpeakers();
+  const tracks = await getTracks();
   const programme = await getProgrammeItems();
 
   return (
@@ -37,10 +39,7 @@ export default async function HomePage() {
         venue={`${conference.venue_name}, ${conference.city}`}
       />
 
-      <StatsSection
-        speakers={speakers.length}
-        sessions={programme.length}
-      />
+      
 
       {/* About */}
       <section className="container mx-auto px-4 py-16">
@@ -54,6 +53,115 @@ export default async function HomePage() {
           )}
         </div>
       </section>
+
+
+      {/* Conference Tracks */}
+      <section className="container mx-auto px-4 py-16">
+        <SectionTitle
+          title="Conference Tracks"
+          subtitle="Core research areas covered by the conference"
+        />
+
+        <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+          {tracks.slice(0, 6).map((track) => (
+            <div
+              key={track.id}
+              className="rounded-xl border bg-white p-6 shadow-sm"
+            >
+              <h3 className="mb-3 text-lg font-semibold">
+                {track.title}
+              </h3>
+
+              <p className="text-sm text-gray-600">
+                {track.description}
+              </p>
+            </div>
+          ))}
+        </div>
+
+        <div className="mt-8 text-center">
+          <Link
+            href="/tracks"
+            className="font-medium text-blue-600 hover:underline"
+          >
+            View All Tracks →
+          </Link>
+        </div>
+      </section>
+
+
+      {/* Call For Papers */}
+      <section className="bg-slate-900 py-20 text-white">
+        <div className="container mx-auto px-4">
+          <div className="mx-auto max-w-5xl">
+            <h2 className="mb-6 text-center text-4xl font-bold">
+              Call For Papers
+            </h2>
+
+            <p className="mb-10 text-center text-lg text-gray-300">
+              Authors are invited to submit
+              original and unpublished research
+              contributions aligned with the
+              conference theme and tracks.
+            </p>
+
+            <div className="grid gap-8 md:grid-cols-2">
+              <div>
+                <h3 className="mb-4 text-2xl font-semibold">
+                  Topics of Interest
+                </h3>
+
+                <ul className="space-y-2 text-gray-300">
+                  {tracks.slice(0, 6).map((track) => (
+                    <li key={track.id}>
+                      • {track.title}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+
+              <div>
+                <h3 className="mb-4 text-2xl font-semibold">
+                  Publication
+                </h3>
+
+                <p className="text-gray-300">
+                  Accepted papers will be
+                  presented during the conference
+                  and included in the conference
+                  proceedings. Further publication
+                  details will be announced soon.
+                </p>
+              </div>
+            </div>
+
+            <div className="mt-10 flex flex-col justify-center gap-4 sm:flex-row">
+              <Link
+                href="/tracks"
+                className="rounded-lg bg-blue-600 px-6 py-3 text-center font-medium"
+              >
+                View Tracks
+              </Link>
+
+              <Link
+                href="/important-dates"
+                className="rounded-lg border border-white px-6 py-3 text-center font-medium"
+              >
+                Submission Deadlines
+              </Link>
+
+              <Link
+              href="https://cmt3.research.microsoft.com/"
+              target="_blank"
+              className="rounded-lg bg-white px-6 py-3 font-medium text-blue-600"
+              >
+              Submit via Microsoft CMT
+              </Link>
+            </div>
+          </div>
+        </div>
+      </section>
+
 
       {/* Announcements */}
       <section className="container mx-auto px-4 py-16">
@@ -135,29 +243,6 @@ export default async function HomePage() {
       </section>
 
 
-      {/* Call For Papers */}
-      <section className="bg-slate-900 py-20 text-white">
-        <div className="container mx-auto px-4 text-center">
-          <h2 className="mb-4 text-4xl font-bold">
-            Call For Papers
-          </h2>
-
-          <p className="mx-auto mb-8 max-w-3xl text-lg text-gray-300">
-            Researchers, academicians, industry
-            professionals, and students are invited
-            to submit original research papers for
-            presentation at the conference.
-          </p>
-
-          <Link
-            href="/important-dates"
-            className="rounded-lg bg-blue-600 px-6 py-3 font-medium text-white hover:bg-blue-700"
-          >
-            View Important Dates
-          </Link>
-        </div>
-      </section>
-
       {/* Registration Banner */}    
       <section className="py-20">
         <div className="container mx-auto px-4">
@@ -181,6 +266,12 @@ export default async function HomePage() {
           </div>
         </div>
       </section>
+
+
+      <StatsSection
+        speakers={speakers.length}
+        sessions={programme.length}
+      />
     </>
   );
 }

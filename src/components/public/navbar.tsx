@@ -5,6 +5,9 @@ import { NavLink } from "./nav-link";
 const links = [
   { href: "/", label: "Home" },
   { href: "/about", label: "About" },
+  { href: "/tracks", label: "Tracks" },
+  { href: "/call-for-papers", label: "Call For Papers" },
+  { href: "/submission", label: "Submission" },
   { href: "/speakers", label: "Speakers" },
   { href: "/programme", label: "Programme" },
   { href: "/committee", label: "Committee" },
