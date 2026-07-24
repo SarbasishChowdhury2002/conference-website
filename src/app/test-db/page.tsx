@@ -1,4 +1,6 @@
-import { supabase } from "@/lib/supabase/client";
+import { getSupabaseBrowserClient } from "@/lib/supabase/client";
+
+const supabase = getSupabaseBrowserClient();
 
 export default async function TestDbPage() {
   const { data, error } = await supabase
