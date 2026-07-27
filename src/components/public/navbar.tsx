@@ -25,7 +25,7 @@ export function Navbar() {
           href="/"
           className="text-2xl font-bold tracking-tight"
         >
-          CONF2026
+          ICAMMA 2026
         </Link>
 
         {/* Desktop Navigation */}
