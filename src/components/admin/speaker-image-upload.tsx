@@ -34,7 +34,7 @@ export default function SpeakerImageUpload({
 
     const { error } =
       await supabase.storage
-        .from("speakers")
+        .from("speaker_photos")
         .upload(fileName, file, {
           upsert: true,
         });
@@ -48,7 +48,7 @@ export default function SpeakerImageUpload({
     const {
       data: { publicUrl },
     } = supabase.storage
-      .from("speakers")
+      .from("speaker_photos")
       .getPublicUrl(fileName);
 
     await updateSpeakerPhoto(

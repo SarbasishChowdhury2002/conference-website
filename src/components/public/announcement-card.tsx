@@ -1,3 +1,6 @@
+import { Card } from "@/components/ui/card";
+import { formatDate } from "@/lib/utils";
+
 interface AnnouncementCardProps {
   title: string;
   content: string;
@@ -10,18 +13,10 @@ export function AnnouncementCard({
   createdAt,
 }: AnnouncementCardProps) {
   return (
-    <div className="rounded-xl border bg-white p-6 shadow-sm">
-      <h3 className="mb-2 text-xl font-semibold">
-        {title}
-      </h3>
-
-      <p className="mb-4 text-gray-600">
-        {content}
-      </p>
-
-      <p className="text-sm text-gray-500">
-        {new Date(createdAt).toLocaleDateString()}
-      </p>
-    </div>
+    <Card className="p-6">
+      <p className="text-label">{formatDate(createdAt.slice(0, 10))}</p>
+      <h3 className="text-h4 mt-2">{title}</h3>
+      <p className="text-lead mt-2">{content}</p>
+    </Card>
   );
 }

@@ -37,7 +37,7 @@ export default function CommitteeMemberImageUpload({
 
     const { error } =
       await supabase.storage
-        .from("committee-members")
+        .from("committee_photos")
         .upload(fileName, file, {
           upsert: true,
         });
@@ -51,7 +51,7 @@ export default function CommitteeMemberImageUpload({
     const {
       data: { publicUrl },
     } = supabase.storage
-      .from("committee-members")
+      .from("committee_photos")
       .getPublicUrl(fileName);
 
     await updateCommitteeMemberPhoto(

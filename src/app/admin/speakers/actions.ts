@@ -2,9 +2,7 @@
 
 import { redirect } from "next/navigation";
 import { createServerSupabaseClient } from "@/lib/supabase/server";
-
-const CONFERENCE_ID =
-  "540c9aa6-9af7-457e-a762-1c4824710a08";
+import { CONFERENCE_ID } from "@/constants/conference";
 
 export async function createSpeaker(
   formData: FormData
