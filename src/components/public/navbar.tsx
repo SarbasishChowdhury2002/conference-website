@@ -12,24 +12,25 @@ import { MobileNav } from "./mobile-nav";
  * and the mobile drawer are the only client islands, kept in NavLink /
  * MobileNav respectively.
  *
- * Breakpoints: full primary nav (all 10 items, no hamburger) appears from
- * `lg:` (1024px) up — tuned typography/spacing (13px nav text, tight gaps)
- * makes that fit without wrapping. The "Submit Your Paper" CTA is the one
- * genuinely optional element per the brief, so it only appears from `xl:`
- * (1280px) up, once there's real breathing room — below that it's still
- * reachable via the mobile drawer.
+ * Breakpoints: the full 10-item primary nav (no hamburger) appears from
+ * `lg:` (1024px) up and must never clip or force horizontal scroll through
+ * the entire "laptop" range (1024–1439px). That's tight — 10 items
+ * including "Paper Submission" and "Important Dates" — so spacing/type
+ * scale is deliberately compact at `lg`/`xl` and only relaxes at `2xl:`
+ * (1536px+), where the tagline subtitle and the "Submit Your Paper" CTA
+ * also reappear. Below `lg:`, everything collapses to the mobile drawer.
  */
 export function Navbar() {
   return (
     <header className="bg-background/95 supports-[backdrop-filter]:bg-background/80 sticky top-0 z-30 border-b border-border backdrop-blur">
-      <Container className="flex h-16 items-stretch justify-between gap-4">
+      <Container className="flex h-16 items-stretch justify-between gap-2 px-4 sm:px-6 lg:gap-3 lg:px-4 xl:px-6 2xl:px-8">
         <Link href="/" className="flex shrink-0 items-center">
           <ConferenceMark showTagline />
         </Link>
 
         <nav
           aria-label="Primary"
-          className="hidden h-full items-stretch gap-x-3 lg:flex xl:gap-x-5"
+          className="hidden h-full min-w-0 items-stretch gap-x-2 lg:flex xl:gap-x-4 2xl:gap-x-5"
         >
           {PRIMARY_NAV.map((item) => (
             <NavLink key={item.href} href={item.href} label={item.label} />
@@ -41,7 +42,7 @@ export function Navbar() {
             asChild
             variant="cta"
             size="sm"
-            className="hidden xl:inline-flex"
+            className="hidden 2xl:inline-flex"
           >
             <Link href="/submission">Submit Your Paper</Link>
           </Button>

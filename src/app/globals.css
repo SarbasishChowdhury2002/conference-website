@@ -222,8 +222,8 @@
   /* Hero/display heading — sized to wrap the full IC-COMEN conference
      name naturally on mobile and desktop without forced breaks. */
   .text-display {
-    @apply text-4xl font-bold tracking-tight text-balance sm:text-5xl lg:text-6xl;
-    line-height: 1.08;
+    @apply text-4xl font-bold tracking-tight text-balance sm:text-5xl lg:text-6xl xl:text-7xl;
+    line-height: 1.05;
   }
   .text-h1 {
     @apply text-3xl font-bold tracking-tight text-balance sm:text-4xl;

@@ -2,7 +2,6 @@ import Link from "next/link";
 
 import { Button } from "@/components/ui/button";
 import { Container } from "@/components/public/section";
-import { ConferenceMark } from "@/components/public/conference-mark";
 import { FULL_CONFERENCE_NAME } from "@/constants/conference";
 import { formatDateRange } from "@/lib/utils";
 import type { Conference } from "@/types/database";
@@ -73,12 +72,25 @@ export function Hero({ conference }: HeroProps) {
     <section className="relative overflow-hidden border-b border-border bg-background text-primary">
       <HeroGraphic />
       <Container className="relative py-20 md:py-28">
-        <div className="max-w-3xl">
-          <ConferenceMark className="mb-6" />
-          <p className="text-lead mt-2 max-w-2xl">{FULL_CONFERENCE_NAME}</p>
+        {/*
+          Large, centered conference identity — the dominant element of the
+          hero, per the requested hierarchy. "IC-COMEN" stays navy
+          (text-primary, inherited); "2027" keeps the same gold accent used
+          everywhere else (ConferenceMark, ConferenceFacts, CTAs) so this
+          doesn't introduce a second treatment for the same idea. `.text-display`
+          + `text-balance` lets the full name below wrap naturally instead of
+          overflowing on narrow screens.
+        */}
+        <div className="mx-auto max-w-4xl text-center">
+          <h1 className="text-display">
+            IC-COMEN <span className="text-accent">2027</span>
+          </h1>
+          <p className="text-lead mx-auto mt-4 max-w-2xl text-balance">
+            {FULL_CONFERENCE_NAME}
+          </p>
 
           {(dateRange || venueLine) && (
-            <p className="text-label mt-6 flex flex-wrap items-center gap-x-3 gap-y-1">
+            <p className="text-label mt-6 flex flex-wrap items-center justify-center gap-x-3 gap-y-1">
               {dateRange && <span>{dateRange}</span>}
               {dateRange && venueLine && (
                 <span aria-hidden="true" className="text-border">
@@ -89,7 +101,7 @@ export function Hero({ conference }: HeroProps) {
             </p>
           )}
 
-          <div className="mt-10 flex flex-wrap gap-4">
+          <div className="mt-10 flex flex-wrap justify-center gap-4">
             <Button asChild variant="cta" size="lg">
               <Link href="/submission">Submit Your Paper</Link>
             </Button>

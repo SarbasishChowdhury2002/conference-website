@@ -18,11 +18,11 @@ interface ConferenceMarkProps {
 export function ConferenceMark({ className, showTagline = false }: ConferenceMarkProps) {
   return (
     <span className={cn("flex flex-col justify-center leading-none", className)}>
-      <span className="text-lg font-bold tracking-tight text-primary sm:text-xl">
+      <span className="text-lg font-bold tracking-tight text-primary 2xl:text-xl">
         IC-COMEN <span className="text-accent">2027</span>
       </span>
       {showTagline && (
-        <span className="mt-0.5 hidden max-w-[320px] truncate text-[10px] font-medium tracking-wide text-muted-foreground xl:block 2xl:max-w-[520px]">
+        <span className="mt-0.5 hidden max-w-[280px] truncate text-[10px] font-medium tracking-wide text-muted-foreground 2xl:block">
           {FULL_CONFERENCE_NAME}
         </span>
       )}
