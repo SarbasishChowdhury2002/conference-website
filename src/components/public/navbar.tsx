@@ -1,7 +1,6 @@
 import Link from "next/link";
 
 import { PRIMARY_NAV } from "@/constants/navigation";
-import { Button } from "@/components/ui/button";
 import { Container } from "@/components/public/section";
 import { ConferenceMark } from "@/components/public/conference-mark";
 import { NavLink } from "./nav-link";
@@ -17,8 +16,11 @@ import { MobileNav } from "./mobile-nav";
  * the entire "laptop" range (1024–1439px). That's tight — 10 items
  * including "Paper Submission" and "Important Dates" — so spacing/type
  * scale is deliberately compact at `lg`/`xl` and only relaxes at `2xl:`
- * (1536px+), where the tagline subtitle and the "Submit Your Paper" CTA
- * also reappear. Below `lg:`, everything collapses to the mobile drawer.
+ * (1536px+), where the tagline subtitle reappears. Below `lg:`, everything
+ * collapses to the mobile drawer.
+ *
+ * No CTA button here by design — "Submit Your Paper" lives in the hero
+ * only, to keep the navbar to exactly the 10 primary nav items.
  */
 export function Navbar() {
   return (
@@ -37,16 +39,7 @@ export function Navbar() {
           ))}
         </nav>
 
-        <div className="flex shrink-0 items-center gap-3">
-          <Button
-            asChild
-            variant="cta"
-            size="sm"
-            className="hidden 2xl:inline-flex"
-          >
-            <Link href="/submission">Submit Your Paper</Link>
-          </Button>
-
+        <div className="flex shrink-0 items-center">
           <MobileNav />
         </div>
       </Container>
